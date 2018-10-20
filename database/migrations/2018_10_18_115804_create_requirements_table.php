@@ -15,10 +15,10 @@ class CreateRequirementsTable extends Migration
     {
         Schema::create('requirements', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('clientId');
+            $table->string('clientId');
             $table->decimal('amount', 10, 2)->nullable();
             $table->dateTime('inputDate');
-            $table->string('fleMetaDataId')->nullable();
+            $table->string('fileMetaDataId')->nullable();
             $table->timestamps();
         });
     }
