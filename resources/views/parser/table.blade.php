@@ -9,7 +9,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th>clientName</th>
+                <th class="sorting">clientName</th>
                 <th>clientId</th>
                 <th>inputDate</th>
                 <th>amount</th>

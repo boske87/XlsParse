@@ -21,6 +21,7 @@ class RequirementResource extends Resource
             'clientName' => $this->client->clientName,
             'amount' => $this->amount,
             'inputDate' => $this->inputDate,
+            'fileName' => $this->fileName,
             'fileMetaDataId' => $this->fileMetaDataId,
             'sourceId' => $this->fileMetaData->sourceId,
             'provider' => $this->fileMetaData->provider,
