@@ -49,7 +49,7 @@ trait SearchTrait
      * @param $sortBy
      * @return bool
      */
-    public function checkSortBy($sortBy)
+    public function checkSortBy(string $sortBy) : bool
     {
         if(in_array($sortBy, $this->sortFields))
             return true;
@@ -61,7 +61,7 @@ trait SearchTrait
      * @param $sortOrder
      * @return bool
      */
-    public function checkSortOrder($sortOrder)
+    public function checkSortOrder(string $sortOrder) : bool
     {
         if(in_array($sortOrder, $this->sortOrder))
             return true;
@@ -73,7 +73,7 @@ trait SearchTrait
      * @param $search
      * @return bool
      */
-    public function checkSearch($search)
+    public function checkSearch(string $search) : bool
     {
         if(in_array($search, $this->searchField))
             return true;

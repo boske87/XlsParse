@@ -14,6 +14,17 @@ use App\Http\Controllers\Controller;
  */
 class ApiController extends Controller
 {
+    private $select = array(
+        'requirements.id',
+        'requirements.clientId',
+        'clients.clientName',
+        'requirements.amount',
+        'requirements.inputDate',
+        'requirements.fileMetaDataId',
+        'file_meta_datas.sourceId',
+        'file_meta_datas.provider',
+        'file_meta_datas.fileName'
+    );
 
     use SearchTrait;
 
@@ -22,20 +33,10 @@ class ApiController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function viewData(Request $request){
-        $select = array(
-            'requirements.id',
-            'requirements.clientId',
-            'clients.clientName',
-            'requirements.amount',
-            'requirements.inputDate',
-            'requirements.fileMetaDataId',
-            'file_meta_datas.sourceId',
-            'file_meta_datas.provider',
-            'file_meta_datas.fileName'
-        );
+
 
         //joint tables
-       $data = Requirement::select($select)
+       $data = Requirement::select($this->select)
            ->join('clients', 'requirements.id', '=', 'clients.id')
            ->join('file_meta_datas', 'requirements.id', '=', 'file_meta_datas.id');
 
@@ -57,7 +58,6 @@ class ApiController extends Controller
                 $data = $data->where($request->get('searchBy'),'=', $request->get('searchFilter'));
             }
         }
-
 
         //paginate
         $data = $data->paginate();

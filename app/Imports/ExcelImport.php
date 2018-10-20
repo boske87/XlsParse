@@ -16,7 +16,7 @@ class ExcelImport implements ToCollection, WithHeadingRow
     /**
     * @param Collection $collection
     */
-    public function collection(Collection $rows)
+    public function collection(Collection $rows): int
     {
 
         Client::truncate();
@@ -32,13 +32,19 @@ class ExcelImport implements ToCollection, WithHeadingRow
     }
 
 
+    /**
+     * @return int
+     */
     public function chunkSize(): int
     {
         return 500;
     }
 
 
-    private function insertAttributeRequirement($row)
+    /**
+     * @param array $row
+     */
+    private function insertAttributeRequirement($row) : void
     {
         Requirement::create([
             'clientId'=>$row['clientid'],
@@ -48,7 +54,10 @@ class ExcelImport implements ToCollection, WithHeadingRow
         ]);
     }
 
-    private function insertAttributeClient($row)
+    /**
+     * @param array $row
+     */
+    private function insertAttributeClient($row) : void
     {
         Client::create([
             'clientId'=>$row['clientid'],
@@ -56,7 +65,11 @@ class ExcelImport implements ToCollection, WithHeadingRow
         ]);
     }
 
-    private function insertAttributeFileMetaData($row)
+
+    /**
+     * @param array $row
+     */
+    private function insertAttributeFileMetaData($row) : void
     {
         $sourceProvider = explode(':', $row['source']);
         FileMetaData::create([

@@ -16,13 +16,22 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class IndexController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('parser.upload');
     }
 
+    /**
+     * @param FileUpload $request
+     * @param ExcelImport $excelImport
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function uploadFile(FileUpload $request, ExcelImport $excelImport)
     {
+        //try to import xls file to database
         try {
             Excel::import($excelImport, request()->file('fileUpload'));
         } catch (Exception $e) {
@@ -37,6 +46,9 @@ class IndexController extends Controller
 
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function viewTable(){
 
         $items = Requirement::paginate();
