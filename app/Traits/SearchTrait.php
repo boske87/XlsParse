@@ -4,14 +4,7 @@
  * Trait SearchTrait
  * @package App\Traits
  */
-/**
- * Trait SearchTrait
- * @package App\Traits
- */
-/**
- * Trait SearchTrait
- * @package App\Traits
- */
+
 trait SearchTrait
 {
     /**

@@ -14,6 +14,9 @@ use App\Http\Controllers\Controller;
  */
 class ApiController extends Controller
 {
+    /**
+     * @var array
+     */
     private $select = array(
         'requirements.id',
         'requirements.clientId',
@@ -33,7 +36,6 @@ class ApiController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function viewData(Request $request){
-
 
         //joint tables
        $data = Requirement::select($this->select)
