@@ -10,10 +10,10 @@ class Requirement extends Model
 
 
     public function client(){
-        return $this->hasOne('App\Client', 'id', 'id');
+        return $this->hasOne('App\Client', 'clientId', 'clientId');
     }
 
     public function fileMetaData(){
-        return $this->hasOne('App\FileMetaData', 'id', 'id');
+        return $this->hasOne('App\FileMetaData', 'fileMetaDataId', 'fileMetaDataId');
     }
 }

@@ -39,8 +39,8 @@ class ApiController extends Controller
 
         //joint tables
        $data = Requirement::select($this->select)
-           ->join('clients', 'requirements.id', '=', 'clients.id')
-           ->join('file_meta_datas', 'requirements.id', '=', 'file_meta_datas.id');
+           ->join('clients', 'requirements.clientId', '=', 'clients.clientId')
+           ->join('file_meta_datas', 'requirements.fileMetaDataId', '=', 'file_meta_datas.fileMetaDataId');
 
 
        //sort by fields

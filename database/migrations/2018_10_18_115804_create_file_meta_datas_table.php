@@ -15,7 +15,7 @@ class CreateFileMetaDatasTable extends Migration
     {
         Schema::create('file_meta_datas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('fileMetaDataId')->nullable();
+            $table->string('fileMetaDataId')->unique();
             $table->string('fileName');
             $table->string('sourceId');
             $table->string('provider');

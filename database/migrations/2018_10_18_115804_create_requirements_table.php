@@ -16,9 +16,11 @@ class CreateRequirementsTable extends Migration
         Schema::create('requirements', function (Blueprint $table) {
             $table->increments('id');
             $table->string('clientId');
+            $table->foreign('clientId')->references('clientId')->on('clients');
             $table->decimal('amount', 10, 2)->nullable();
             $table->dateTime('inputDate');
-            $table->string('fileMetaDataId')->nullable();
+            $table->string('fileMetaDataId');
+            $table->foreign('fileMetaDataId')->references('fileMetaDataId')->on('file_meta_datas');
             $table->timestamps();
         });
     }

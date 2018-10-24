@@ -4,6 +4,8 @@ namespace App\Imports;
 
 use App\Client;
 use App\FileMetaData;
+use App\Repositories\Clients\ClientsRepositoryInterface;
+use App\Repositories\FileMeta\MetaRepositoryInterface;
 use App\Requirement;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -11,21 +13,29 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
+
 class ExcelImport implements ToCollection, WithHeadingRow
 {
+
+    protected $clientsRepository;
+    protected $fileMetaRepository;
+
+    public function __construct(ClientsRepositoryInterface $clientsRepository, MetaRepositoryInterface $fileMetaRepository)
+    {
+        $this->clientsRepository = $clientsRepository;
+        $this->fileMetaRepository = $fileMetaRepository;
+    }
+
     /**
     * @param Collection $collection
     */
     public function collection(Collection $rows): int
     {
 
-        Client::truncate();
-        FileMetaData::truncate();
-        Requirement::truncate();
         foreach ($rows as $row) {
-            $this->insertAttributeRequirement($row);
             $this->insertAttributeClient($row);
             $this->insertAttributeFileMetaData($row);
+            $this->insertAttributeRequirement($row);
         }
 
         return count($rows);
@@ -59,10 +69,13 @@ class ExcelImport implements ToCollection, WithHeadingRow
      */
     private function insertAttributeClient($row) : void
     {
-        Client::create([
-            'clientId'=>$row['clientid'],
-            'clientName'=>$row['clientname'],
-        ]);
+        $this->clientsRepository->createIfNotExists(
+            array('clientId'=>$row['clientid']),
+            array(
+                'clientId'=>$row['clientid'],
+                'clientName'=>$row['clientname'])
+            );
+
     }
 
 
@@ -72,11 +85,14 @@ class ExcelImport implements ToCollection, WithHeadingRow
     private function insertAttributeFileMetaData($row) : void
     {
         $sourceProvider = explode(':', $row['source']);
-        FileMetaData::create([
-            'fileMetaDataId'=> $row['filemetadataid'],
-            'fileName'=> $row['filename'],
-            'sourceId'=>$sourceProvider[0],
-            'provider'=>$sourceProvider[1],
-        ]);
+
+        $this->fileMetaRepository->createIfNotExists(
+            array('fileMetaDataId'=> $row['filemetadataid']),
+            array(
+                'fileMetaDataId'=> $row['filemetadataid'],
+                'fileName'=> $row['filename'],
+                'sourceId'=>$sourceProvider[0],
+                'provider'=>$sourceProvider[1])
+            );
     }
 }

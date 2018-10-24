@@ -156,11 +156,14 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+        App\Repositories\Clients\ClientsRepoServiceProvide::class,
+        App\Repositories\FileMeta\MetaRepoServiceProvide::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+
     ],
 
     /*
